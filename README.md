@@ -2,7 +2,7 @@
 
 Application mobile de suivi de dépenses personnelles construite avec **React Native, TypeScript, Expo et Supabase**. Synchronisation cloud, statistiques mensuelles, catégorisation personnalisable.
 
-[**Live Demo (Expo Web) →**](https://spendtracker-xxx.vercel.app)
+[**Live Demo (Expo Web) →**](https://spendtracker-alpha.vercel.app/)
 
 ## Fonctionnalités
 
