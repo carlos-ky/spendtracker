@@ -60,6 +60,7 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.header}>
+          <Text style={styles.brandEmoji}>💰</Text>
           <Text style={styles.brand}>SpendTracker</Text>
           <Text style={styles.tagline}>Suivez vos dépenses, simplement.</Text>
         </View>
@@ -127,6 +128,10 @@ export default function LoginScreen() {
                 : 'Pas de compte ? Créer un compte'}
             </Text>
           </TouchableOpacity>
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Carlos KY · 2026</Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -230,4 +235,17 @@ const styles = StyleSheet.create({
     fontSize: typography.sizeSm,
     marginTop: spacing.xs,
   },
+  brandEmoji: {
+  fontSize: 48,
+  marginBottom: spacing.sm,
+},
+footer: {
+  alignItems: 'center',
+  marginTop: spacing.xl,
+},
+footerText: {
+  fontSize: typography.sizeXs,
+  color: colors.textLight,
+  letterSpacing: 1,
+},
 })

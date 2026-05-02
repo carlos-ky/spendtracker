@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react'
-import { useCallback } from 'react'
-import { useFocusEffect } from '@react-navigation/native'
+import { useState } from 'react'
 import {
   View,
   Text,
@@ -14,35 +12,18 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useAuth } from '../contexts/AuthContext'
+import { useCategories } from '../contexts/CategoriesContext'
 import { supabase } from '../lib/supabase'
 import { colors, spacing, typography, radius } from '../theme/colors'
-import type { Category } from '../types/database'
 
 export default function AddExpenseScreen() {
   const { user } = useAuth()
+  const { categories } = useCategories()
   const navigation = useNavigation()
   const [amount, setAmount] = useState('')
   const [description, setDescription] = useState('')
-  const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchCategories()
-    }, [])
-  )
-
-  const fetchCategories = async () => {
-    if (!user) return
-    const { data } = await supabase
-      .from('st_categories')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('name')
-
-    setCategories(data || [])
-  }
 
   const handleSave = async () => {
     if (!user) return
@@ -90,7 +71,11 @@ export default function AddExpenseScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-        <Text style={styles.title}>Nouvelle dépense</Text>
+        <View style={styles.headerBlock}>
+          <Text style={styles.titleEmoji}>➕</Text>
+          <Text style={styles.title}>Nouvelle dépense</Text>
+          <Text style={styles.headerSub}>Combien avez-vous dépensé ?</Text>
+        </View>
 
         <View style={styles.field}>
           <Text style={styles.label}>Montant (FCFA)</Text>
@@ -251,4 +236,17 @@ const styles = StyleSheet.create({
     fontSize: typography.sizeBase,
     fontWeight: typography.weightSemibold,
   },
+  headerBlock: {
+  alignItems: 'center',
+  marginBottom: spacing.xl,
+},
+titleEmoji: {
+  fontSize: 32,
+  marginBottom: spacing.sm,
+},
+headerSub: {
+  fontSize: typography.sizeSm,
+  color: colors.textMuted,
+  marginTop: 4,
+},
 })
