@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useAuth } from '../contexts/AuthContext'
 import LoginScreen from '../screens/LoginScreen'
 import TabNavigator from './TabNavigator'
+import CategoriesScreen from '../screens/CategoriesScreen'
 import { colors } from '../theme/colors'
 
 const Stack = createNativeStackNavigator()
@@ -21,7 +22,14 @@ export default function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user ? (
-        <Stack.Screen name="App" component={TabNavigator} />
+        <>
+          <Stack.Screen name="App" component={TabNavigator} />
+          <Stack.Screen
+            name="Categories"
+            component={CategoriesScreen}
+            options={{ presentation: 'card' }}
+          />
+        </>
       ) : (
         <Stack.Screen name="Login" component={LoginScreen} />
       )}

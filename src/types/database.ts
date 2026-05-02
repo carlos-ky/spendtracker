@@ -28,3 +28,9 @@ export type ExpenseInput = {
   category_id: string | null
   date: string
 }
+
+export type CategoryInput = {
+  name: string
+  icon: string
+  color: string
+}

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import {
   View,
   Text,
@@ -25,9 +27,11 @@ export default function AddExpenseScreen() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
-  useEffect(() => {
-    fetchCategories()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      fetchCategories()
+    }, [])
+  )
 
   const fetchCategories = async () => {
     if (!user) return
