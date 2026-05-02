@@ -8,14 +8,14 @@ import RootNavigator from './src/navigation/RootNavigator'
 export default function App() {
   return (
     <AuthProvider>
-       <CategoriesProvider>
-          <NavigationContainer>
-            <View style={styles.appWrapper}>
-              <RootNavigator />
-            </View>
-            <StatusBar style="dark" />
-          </NavigationContainer>
-       </CategoriesProvider>
+      <CategoriesProvider>
+        <NavigationContainer>
+          <View style={styles.appWrapper}>
+            <RootNavigator />
+          </View>
+          <StatusBar style="dark" />
+        </NavigationContainer>
+      </CategoriesProvider>
     </AuthProvider>
   )
 }
@@ -24,16 +24,10 @@ const styles = StyleSheet.create({
   appWrapper: {
     flex: 1,
     ...(Platform.OS === 'web' && {
+      width: '100%',
       maxWidth: 480,
       alignSelf: 'center',
-      width: '100%',
-      borderLeftWidth: 1,
-      borderRightWidth: 1,
-      borderColor: '#E5E0D8',
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 0.05,
-      shadowRadius: 20,
+      minHeight: '100vh' as any,
     }),
   },
 })
