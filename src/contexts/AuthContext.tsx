@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
+import { ensureDefaultCategories } from '../lib/defaultCategories'
 
 interface AuthContextType {
   user: User | null
@@ -24,12 +25,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
+      if (session?.user) {
+        ensureDefaultCategories(session.user.id)
+      }
     })
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
+
+       // Crée les catégories par défaut si l'utilisateur vient de se connecter
+      if (session?.user) {
+        ensureDefaultCategories(session.user.id)
+      }
     })
 
     return () => subscription.unsubscribe()
